@@ -1,0 +1,2 @@
+LIBRARY "bibliotekaASM"
+EXPORTS	grayscaleASM
