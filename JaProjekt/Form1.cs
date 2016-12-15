@@ -44,6 +44,10 @@ namespace JaProjekt
 
         private void button_generuj_Click(object sender, EventArgs e)
         {
+
+            //TODO delete later!!!
+            //inputFile = "C:\\hantle2.jpg";
+           // outputFile = "C:\\Users\\alachman\\Pictures\\heheh.jpg";
             if (inputFile != null && outputFile != null)
             {
                 try
@@ -79,6 +83,8 @@ namespace JaProjekt
 
                 //zadeklarowanie tablicy do przechowywania bajtów bitmapy
                 int bytes = Math.Abs(bmpData.Stride) * bitmap.Height;
+                label1.Text = "wielkosc zdjecia: " + imageSize;
+                label2.Text = "ilosc bytow: " + bytes;
                 byte[] rgbValues = new byte[bytes];
 
 
@@ -139,7 +145,7 @@ namespace JaProjekt
                 label8.Text += "Czas wykonania: " + sw.Elapsed.TotalSeconds + "\r\n";
                 label8.Text += "Liczba wątków: " + threads + "\r\n";
                 pictureBox1.Image = bitmap;
-                bitmap.Save(button_output.Text);
+                bitmap.Save(outputFile);
             }
             catch (Exception ex)
             {
