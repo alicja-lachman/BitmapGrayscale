@@ -46,8 +46,8 @@ namespace JaProjekt
         {
 
             //TODO delete later!!!
-            //inputFile = "C:\\hantle2.jpg";
-           // outputFile = "C:\\Users\\alachman\\Pictures\\heheh.jpg";
+           inputFile = "C:\\hantle2.jpg";
+           outputFile = "C:\\Users\\alachman\\Pictures\\heheh.jpg";
             if (inputFile != null && outputFile != null)
             {
                 try
@@ -83,8 +83,7 @@ namespace JaProjekt
 
                 //zadeklarowanie tablicy do przechowywania bajtów bitmapy
                 int bytes = Math.Abs(bmpData.Stride) * bitmap.Height;
-                label1.Text = "wielkosc zdjecia: " + imageSize;
-                label2.Text = "ilosc bytow: " + bytes;
+ 
                 byte[] rgbValues = new byte[bytes];
 
 
@@ -103,6 +102,7 @@ namespace JaProjekt
                 }
 
                 var sw = Stopwatch.StartNew();
+
                 if (radio_cpp.Checked)
                 {
                     Parallel.ForEach(threadData, new ParallelOptions() { MaxDegreeOfParallelism = threads },
@@ -115,25 +115,9 @@ namespace JaProjekt
                 }
                 else
                 {
-                    /*This time we convert the IntPtr to a ptr*/
-                    byte* scan0 = (byte*)bmpData.Scan0.ToPointer();
-                    //byte* bitmap = (byte*)bitmap;
                     FunkcjeAsemblera funkcje = new FunkcjeAsemblera();
-                    //funkcje.wywolajFunkcjeLicz(scan0, rgbValues, 70, rgbValues.Length);
-                    // BitmapData bmData = b.LockBits(new Rectangle(0, 0, b.Width, b.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
-                
-
-                    // startTime = DateTime.Now;
-                    FunkcjeAsemblera.invokeGreyscaleASM(scan0, rgbValues,120, imageSize);
-
-                    //  b.UnlockBits(bmData);
-
-                    //  stopTime = DateTime.Now;
-                    //  roznica = stopTime - startTime;
-                    // timeASM = roznica.Milliseconds;
-                    // pictureBox2.Image = b;
-                    // return true;
+                    FunkcjeAsemblera.invokeGreyscaleASM(rgbValues,imageSize);
                 }
 
                 // skopiowanie wartości RGB z powrotem do bitmapy
