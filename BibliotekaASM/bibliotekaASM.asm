@@ -25,6 +25,7 @@ push rbp
 
 	 PSUBB xmm0, xmm0				    ;wyzerowanie xmm0
 	 PSUBB xmm1, xmm1					;wyzerowanie xmm1
+	 PSUBB xmm2, xmm2
 
 
     movzx eax, byte ptr[rcx +r10]
@@ -35,7 +36,7 @@ push rbp
    PINSRD xmm0, eax, 2
      movzx eax, byte ptr[rcx +r10 +9]
    PINSRD xmm0, eax, 3
-   ;CVTDQ2PS xmm0, xmm0                       ;konwersja do liczb zmiennopozycyjnych
+                   ;konwersja do liczb zmiennopozycyjnych
 
        movzx eax, byte ptr[rcx +r10+1]
    PINSRD xmm1, eax, 0   ;umieszczenie 4 kolejnych skladowych G w rejestrze xmm0
@@ -54,13 +55,14 @@ push rbp
    PINSRD xmm2, eax, 2
           movzx eax, byte ptr[rcx +r10+11]
    PINSRD xmm2, eax, 3
-  ; CVTDQ2PS xmm2, xmm2                        ;konwersja do liczb zmiennopozycyjnych
 
- 
+
+
    PADDD XMM0, XMM1  ;zsumowanie skladowych B i G  z nasyceniem
    PADDD XMM0, XMM2  ;zsumowanie skladowych B,G i R
 
-   
+  ; CVTDQ2PS XMM0, XMM0 ; Convert four packed signed doubleword integers from xmm2/m128 to 
+
   
    DIVPS XMM0, XMM3      ;podzielenie sumy znajdujacej sie w XMM0 przez 3 z XMM3
  CVTPS2DQ XMM0, XMM0  ;Convert four packed single-precision floating-point values from xmm2/m128 
